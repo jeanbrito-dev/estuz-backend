@@ -10,6 +10,11 @@ const examRoutes       = require('./routes/examRoutes');
 
 const app = express();
 
+// rota para manter o servidor ativo
+app.get("/health", (req, res) => {
+  res.status(200).send("OK")
+});
+
 const allowedOrigins = (process.env.FRONTEND_URL || 'http://localhost:5173').split(',');
 app.use(cors({
   origin: (origin, callback) => {
