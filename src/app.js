@@ -16,10 +16,14 @@ app.get("/health", (req, res) => {
   res.status(200).send("OK")
 });
 
-const allowedOrigins = (process.env.FRONTEND_URL || process.env.TEST_FRONTEND_URL).split(',');
+const rawOrigins = [
+  ...(process.env.FRONTEND_URL || '').split(','),
+  ...(process.env.TEST_FRONTEND_URL || '').split(','),
+].filter(Boolean); // remove strings vazias
+
 app.use(cors({
   origin: (origin, callback) => {
-    if (!origin || allowedOrigins.includes(origin)) return callback(null, true);
+    if (!origin || rawOrigins.includes(origin)) return callback(null, true);
     callback(new Error('Not allowed by CORS'));
   },
   credentials: true,
