@@ -16,7 +16,7 @@ app.get("/health", (req, res) => {
   res.status(200).send("OK")
 });
 
-const allowedOrigins = (process.env.FRONTEND_URL || 'http://localhost:5173').split(',');
+const allowedOrigins = (process.env.FRONTEND_URL || process.env.TEST_FRONTEND_URL).split(',');
 app.use(cors({
   origin: (origin, callback) => {
     if (!origin || allowedOrigins.includes(origin)) return callback(null, true);
