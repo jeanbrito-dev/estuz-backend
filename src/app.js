@@ -41,6 +41,10 @@ app.use('/api/password',    passwordRoutes);
 app.use('/api/notes',       noteRoutes);
 app.use('/api/survival',    survivalRoutes);
 
+app.use(express.json({ limit: '5mb' }));
+
+app.use(express.urlencoded({ extended: true, limit: '5mb' }));
+
 app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', message: '🎓 Estuz API rodando!' });
 });
