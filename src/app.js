@@ -7,8 +7,9 @@ const subjectRoutes    = require('./routes/subjectRoutes');
 const absenceRoutes    = require('./routes/absenceRoutes');
 const assignmentRoutes = require('./routes/assignmentRoutes');
 const examRoutes       = require('./routes/examRoutes');
-const passwordRoutes = require('./routes/passwordRoutes');
-const noteRoutes = require('./routes/noteRoutes');
+const passwordRoutes   = require('./routes/passwordRoutes');
+const noteRoutes       = require('./routes/noteRoutes');
+const survivalRoutes   = require('./routes/survivalRoutes')
 
 const app = express();
 
@@ -37,7 +38,8 @@ app.use('/api/absences',    absenceRoutes);
 app.use('/api/assignments', assignmentRoutes);
 app.use('/api/exams',       examRoutes);
 app.use('/api/password',    passwordRoutes);
-app.use('/api/notes',       noteRoutes)
+app.use('/api/notes',       noteRoutes);
+app.use('/api/survival',    survivalRoutes);
 
 app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', message: '🎓 Estuz API rodando!' });
