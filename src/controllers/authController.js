@@ -46,7 +46,7 @@ const login = async (req, res) => {
     const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
       expiresIn: process.env.JWT_EXPIRES_IN || '7d',
     });
-    res.json({ token, user: { id: user.id, name: user.name, email: user.email } });
+    res.json({ token, user: { id: user.id, name: user.name, email: user.email, avatar_url: user.avatar_url || null } });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Erro interno no servidor.' });
@@ -56,7 +56,7 @@ const login = async (req, res) => {
 const me = async (req, res) => {
   try {
     const result = await db.query(
-      'SELECT id, name, email, created_at FROM users WHERE id = $1',
+      'SELECT id, name, email, avatar_url, created_at FROM users WHERE id = $1',
       [req.userId]
     );
     if (result.rows.length === 0)
@@ -68,4 +68,18 @@ const me = async (req, res) => {
   }
 };
 
-module.exports = { register, login, me };
+const updateAvatar = async (req, res) => {
+  const { avatar_url } = req.body;
+  try {
+    await db.query(
+      'UPDATE users SET avatar_url = $1 WHERE id = $2',
+      [avatar_url || null, req.userId]
+    );
+    res.json({ message: 'Avatar atualizado.' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Erro ao atualizar avatar.' });
+  }
+};
+
+module.exports = { register, login, me, updateAvatar };
