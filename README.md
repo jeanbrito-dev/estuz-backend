@@ -1,6 +1,6 @@
 # Estuz Backend
 
-API para o projeto **Estuz** — sistema de organização de estudos.  
+API do **Estuz** — sistema de organização de estudos para estudantes. Permite gerenciar disciplinas, anotações, tarefas, provas e faltas de forma centralizada e segura.  
 
 Backend em **Node.js** com **Express**, hospedado no **Render**, banco de dados no **Supabase** e frontend no **Vercel**.
 
@@ -14,14 +14,14 @@ Backend em **Node.js** com **Express**, hospedado no **Render**, banco de dados 
 - CORS configurado para frontend
 - dotenv para variáveis de ambiente
 - Supabase (PostgreSQL)
-- Vercel (frontend)  
-- Render (backend)
+- Render (backend)  
+- Vercel (frontend)
 
 ---
 
 ## ⚙️ Funcionalidades principais
 
-- Autenticação de usuários (login, cadastro, reset de senha)
+- Autenticação de usuários: login, cadastro e reset de senha
 - CRUD de:
   - Subjects (disciplinas)
   - Notes (anotações)
@@ -29,8 +29,8 @@ Backend em **Node.js** com **Express**, hospedado no **Render**, banco de dados 
   - Exams (provas)
   - Absences (faltas)
   - Survival (sobrevivência acadêmica)
-- Endpoints seguros com JWT
-- Limite de payload (`5mb`) para segurança
+- Endpoints protegidos com JWT
+- Limite de payload de 5MB
 - Middleware global para parsing JSON e URL-encoded
 - CORS restrito aos domínios do frontend
 
@@ -50,12 +50,3 @@ Backend em **Node.js** com **Express**, hospedado no **Render**, banco de dados 
 | `/api/password/reset` | POST | Não | Reset de senha |
 
 > ⚠️ JWT obrigatório em todas as rotas protegidas, exceto `/auth` e reset de senha.
-
----
-
-## 💻 Setup local
-
-1. Clone o repositório:
-```bash
-git clone (https://github.com/jeanbrito-dev/estuz-backend.git)
-cd estuz-backend
