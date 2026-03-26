@@ -25,12 +25,14 @@ const rawOrigins = [
 
 app.use(cors({
   origin: (origin, callback) => {
-    if (!origin || rawOrigins.includes(origin)) return callback(null, true);
+    if (rawOrigins.includes(origin)) return callback(null, true);
     callback(new Error('Not allowed by CORS'));
   },
   credentials: true,
 }));
-app.use(express.json());
+
+app.use(express.json({ limit: '5mb' }));
+app.use(express.urlencoded({ extended: true, limit: '5mb' }));
 
 app.use('/api/auth',        authRoutes);
 app.use('/api/subjects',    subjectRoutes);
@@ -40,10 +42,6 @@ app.use('/api/exams',       examRoutes);
 app.use('/api/password',    passwordRoutes);
 app.use('/api/notes',       noteRoutes);
 app.use('/api/survival',    survivalRoutes);
-
-app.use(express.json({ limit: '5mb' }));
-
-app.use(express.urlencoded({ extended: true, limit: '5mb' }));
 
 app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', message: '🎓 Estuz API rodando!' });
